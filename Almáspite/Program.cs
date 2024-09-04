@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace Almáspite
 {
-    internal class Program
+    public class Program
     {
+        Program()
+        {
+            Console.WriteLine("Hello World!");
+        }
+
         static void Main(string[] args)
         {
+            new Program();
         }
     }
 }

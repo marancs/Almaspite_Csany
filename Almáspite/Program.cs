@@ -8,6 +8,9 @@ namespace Almáspite
 {
     public class Program
     {
+        //globális cicák lista
+        List<string> cicak = new List<string>();
+        int otvenFelett = 0;
         public Program()//konstruktor
         {
             Console.ForegroundColor = ConsoleColor.Black;
@@ -35,10 +38,40 @@ namespace Almáspite
             Console.WriteLine($"Elemszáma: {l.Count}");
         }
 
+        public string Helyezes(int helyezes)
+        {
+            List<int> pontok = new List<int>();
+            string eredmeny = "";
+            otvenFelett = 0;
+            foreach (string s in cicak)
+            {
+                int pont = Convert.ToInt32(s.Split(';')[1]);
+                if (pont > 50)
+                    otvenFelett++;
+
+                pontok.Add(pont);
+            }
+            pontok.Sort();
+            pontok.Reverse();
+            if (helyezes > 0 && helyezes <= cicak.Count())
+            {
+                int keresett_pont = pontok[helyezes - 1];
+                foreach ( string s in cicak)
+                {
+                    int cica_pont = Convert.ToInt32(s.Split(';')[1]);
+                    if (cica_pont == keresett_pont)
+                    {
+                        eredmeny = s;
+                    }
+                }                
+            }
+            return eredmeny;
+        }
+
         public void Agazati2()
         {
             Console.WriteLine("2. feladat\nCica szépségverseny:");
-            List<string> cicak = new List<string>();
+           
 
             while (true)
             {
@@ -55,7 +88,15 @@ namespace Almáspite
             {
                 Console.WriteLine(cica);
             }
-
+            string sor = "";
+            for (int i = 1; i <= 3; i++)
+            {
+                Console.WriteLine($"\n{i}. helyezett cica adatai:");
+                sor = Helyezes(i);//sor="C;84"
+                Console.WriteLine($"Cica: {sor.Split(';')[0]} elért pontja: {sor.Split(';')[1]}");
+                Console.WriteLine("----------------------------");
+            }
+            Console.WriteLine(otvenFelett);
         }
 
         public void Agazati()

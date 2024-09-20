@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Almáspite
 {
@@ -14,7 +13,61 @@ namespace Almáspite
         public Program()//konstruktor
         {
             Console.ForegroundColor = ConsoleColor.Black;
-            Agazati2();
+            Randizas();
+        }
+
+        public void Randizas()
+        {
+            Console.Write("Hány ember jelent meg a vakrandin: ");
+            int resztvevok = Convert.ToInt32(Console.ReadLine());
+            
+            Console.Write("Hány hölgy jelent meg: ");
+            int holgyek_db = Convert.ToInt32(Console.ReadLine());
+            while (holgyek_db >= (resztvevok/2)+1)
+            {
+                Console.WriteLine("Túl sok hölgy jelent meg!");
+                Console.WriteLine("Kérem újra a hölgyek számát!");
+                holgyek_db = Convert.ToInt32(Console.ReadLine());                
+            }
+            string[] urak = new string[resztvevok - holgyek_db];
+            string[] holgyek = new string[holgyek_db];
+
+            Console.WriteLine("Kérem a hölgyek nevét!");
+            for(int i=0;i<holgyek.Length; i++)
+            {
+                Console.Write("Hölgy: ");
+                holgyek[i] = Console.ReadLine();
+            }
+            Console.WriteLine("Kérem az urak nevét!");
+            for (int i = 0; i < urak.Length; i++)
+            {
+                Console.Write("Úr: ");
+                urak[i] = Console.ReadLine();
+            }
+            Console.WriteLine("Indul a randi!");
+            Random rand = new Random();
+            string[] parok = new string[holgyek_db];
+            int maximum;
+            for(int h=0;h<holgyek_db;h++)
+            {
+                Console.WriteLine($" - {holgyek[h]}: Pontjai:");
+                maximum = 0;
+                foreach (string ur in urak)
+                {
+                    int pont = rand.Next(1, 11);
+                    Console.WriteLine($"{ur} pontja: {pont}");
+                    if (maximum< pont)
+                    {
+                        parok[h] = $"{holgyek[h]} - {ur}";
+                        maximum = pont;
+                    }
+                }
+                Console.WriteLine("---------------------");
+            }
+            Console.WriteLine("Párok a hölgyek alapján!");
+            foreach (var par in parok)
+                Console.WriteLine(par);
+
         }
 
         public void Tombok()
@@ -23,9 +76,14 @@ namespace Almáspite
             t[0] = "Hali";
             t[1] = "Almáspite";
             t[2] = "Jani";
-            t[5] = "Utolsó";
+            t[4] = "Utolsó";
 
             string[] maganh = new string[] { "a", "á", "e", "é","i","í" };
+            string[] szamok = new string[9];
+            //szamok[0] = 2;
+            //szamok[1] = 12;
+            foreach(string szam in szamok)
+                Console.WriteLine(szam);
 
         }
 

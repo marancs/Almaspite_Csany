@@ -12,7 +12,7 @@ namespace Almáspite
         int otvenFelett = 0;
         public Program()//konstruktor
         {
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Black;            
             Randizas();
         }
 
@@ -64,10 +64,35 @@ namespace Almáspite
                 }
                 Console.WriteLine("---------------------");
             }
+            Console.WriteLine("---------------------");
             Console.WriteLine("Párok a hölgyek alapján!");
             foreach (var par in parok)
                 Console.WriteLine(par);
+            Console.WriteLine("---------------------");
+            Console.WriteLine("Párok az urak alapján!");
 
+            string[] urparok = new string[urak.Length];
+            maximum = 0;
+            for (int h = 0; h < urak.Length; h++)
+            {
+                Console.WriteLine($" - {urak[h]}: Pontjai:");
+                maximum = 0;
+                foreach (string holgy in holgyek)
+                {
+                    int pont = rand.Next(1, 11);
+                    Console.WriteLine($"{holgy} pontja: {pont}");
+                    if (maximum < pont)
+                    {
+                        urparok[h] = $"{urak[h]} - {holgy}";
+                        maximum = pont;
+                    }
+                }
+                Console.WriteLine("---------------------");
+            }
+            Console.WriteLine("---------------------");
+            Console.WriteLine("Párok az urak alapján!");
+            foreach (var par in urparok)
+                Console.WriteLine(par);
         }
 
         public void Tombok()

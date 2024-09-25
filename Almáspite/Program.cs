@@ -52,13 +52,13 @@ namespace Almáspite
             {
                 Console.WriteLine($" - {holgyek[h]}: Pontjai:");
                 maximum = 0;
-                foreach (string ur in urak)
+                foreach (string u in urak)
                 {
                     int pont = rand.Next(1, 11);
-                    Console.WriteLine($"{ur} pontja: {pont}");
+                    Console.WriteLine($"{u} pontja: {pont}");
                     if (maximum< pont)
                     {
-                        parok[h] = $"{holgyek[h]} - {ur}";
+                        parok[h] = $"{holgyek[h]} - {u}";
                         maximum = pont;
                     }
                 }
@@ -77,13 +77,13 @@ namespace Almáspite
             {
                 Console.WriteLine($" - {urak[h]}: Pontjai:");
                 maximum = 0;
-                foreach (string holgy in holgyek)
+                foreach (string ho in holgyek)
                 {
                     int pont = rand.Next(1, 11);
-                    Console.WriteLine($"{holgy} pontja: {pont}");
+                    Console.WriteLine($"{ho} pontja: {pont}");
                     if (maximum < pont)
                     {
-                        urparok[h] = $"{urak[h]} - {holgy}";
+                        urparok[h] = $"{urak[h]} - {ho}";
                         maximum = pont;
                     }
                 }
@@ -93,6 +93,27 @@ namespace Almáspite
             Console.WriteLine("Párok az urak alapján!");
             foreach (var par in urparok)
                 Console.WriteLine(par);
+
+            Console.WriteLine("---------------------");
+            Console.WriteLine("Tökéletes párok");
+            string ur;
+            string holgy;
+            foreach(var hpar in parok)//hölgyek
+            {
+                holgy = hpar.Split('-')[0].Trim();
+                ur = hpar.Split('-')[1].Trim();
+                
+                foreach (var upar in urparok)//urak
+                {
+                    if (upar.Equals($"{ur} - {holgy}"))
+                    {
+                        Console.WriteLine($"Tökéletes pár: {holgy} - {ur} ");
+                        break;
+                    }
+                }
+            }
+            
+
         }
 
         public void Tombok()

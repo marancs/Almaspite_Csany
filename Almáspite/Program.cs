@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 
 namespace Almáspite
@@ -9,11 +10,89 @@ namespace Almáspite
     {
         //globális cicák lista
         List<string> cicak = new List<string>();
+        Random random = new Random();
         int otvenFelett = 0;
         public Program()//konstruktor
         {
-            Console.ForegroundColor = ConsoleColor.Black;            
-            Randizas();
+            Console.ForegroundColor = ConsoleColor.Black;
+            HF2();
+        }
+
+        public void Gyakorlas2()
+        {
+            //Kérj be egy számot (3 és 10 között) ez lesz a csoport létszám
+            //Kérj be annyi diák nevét ahány a csoport létszám és mentsd le őket egy tömbbe.
+            //Generálj le jegyeket (1-5, ahány diák van) és mentsd le őket egy másik tömbbe.
+            //0. diak jegye a jegy tömb 0. eleme.
+            //Feladatok:
+            //Hány diák kapott 1-est és kik azok?
+            //Mennyi lett a csoport átlag
+            //Kérj be egy diák nevét és írd ki a jegyét, ha nem található ilyen diák, akkor azt is szépen
+            //Kik azok a diákok akik az átlaghoz közeli jegyük van. 
+            //pl.: Átlag: 3,5 azok a diákok kellenek akiknek 3-as és 4-es jegyük van
+
+
+
+        }
+
+        public void Gyakorlas()
+        {
+            //Kérj be neveket vesszővel elválasztva
+            //Kérj be átlagokat szóközzel elválasztva
+            //Addig kérd be az átlagokat, ameddig ugyan annyit nem ad meg, mint amennyi nevet megadott
+            //Mi az átlag név hossz?
+            //Mi az átlaga a megadott számoknak?
+
+            Console.WriteLine("1. Feladat");
+            string nevek = "";
+            while (true) {
+                Console.Write("Név: ");
+                string nev = Console.ReadLine();
+                if (String.IsNullOrEmpty(nev)) {
+                    break;
+                }
+                nevek += nev+",";//Jani;Tamás;Feri;
+            }
+            nevek = nevek.Remove(nevek.Length - 1, 1);
+            string[] nevekTomb = nevek.Split(',');
+
+            double[] atlagTomb = new double[nevekTomb.Length];
+            Console.WriteLine("Kérem szépen adja meg az átlagokat:");
+            for (int i = 0; i < atlagTomb.Length; i++)
+            {
+                Console.Write("Átlag: ");
+                atlagTomb[i] = Convert.ToDouble(Console.ReadLine());
+            }
+            Console.WriteLine("Mi az átlag név hossz?");
+            int[] atlagHossz = new int[nevekTomb.Length];
+            for (int i = 0; i < atlagTomb.Length; i++)
+                atlagHossz[i] = nevekTomb[i].Length;
+
+            Console.WriteLine($"Átlag név hossz: {atlagHossz.Average()}");
+            Console.WriteLine($"Megadott számok átlaga: {atlagTomb.Average()}");
+            //Csinálj egy üres tömböt 50 szamot tudunk elmenteni
+            //Töltsd fel ezt a tömböt 1-50ig
+            //Mi a számok átlaga?
+            int[] tomb = new int[50];
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                tomb[i] = random.Next(1, 50);
+            }
+            Console.WriteLine($"Számok átlaga: {tomb.Average()}");
+
+            //Kérj be a felhasználótól egy számot
+            //Nézd meg hogy benne van-e (igen/nem)
+            Console.Write("\nKérek egy számot:");
+            int szam = Convert.ToInt32(Console.ReadLine());
+            if (tomb.Contains(szam))
+            {
+                Console.WriteLine("Benne van a tömbben!");
+            }
+            else
+            {
+                Console.WriteLine("Nincs a tömbben!!");
+            }
+
         }
 
         public void Randizas()
@@ -116,6 +195,60 @@ namespace Almáspite
 
         }
 
+        public void HF2()
+        {
+            Console.WriteLine("Generálj kettő (a,b) 100 elemű int tömböt 1 és 10 000 közötti értékekkel!");
+            Console.WriteLine("Írd ki tömbök metszetét!");
+            Console.WriteLine("Írd ki azokat a számokat melyek az 'a' tömbben benne vannak de a 'b' -ben nincsennek!");
+
+            int[] a = new int[100];
+            int[] b = new int[100];
+            
+            for (int i = 0; i < a.Length; i++)
+                a[i] = random.Next(1,10001);                
+            
+
+            for (int i = 0; i < b.Length; i++)
+                b[i] = random.Next(1, 10001);
+
+            Console.WriteLine("Tömbök metszete:");
+
+            foreach (int item in a)            
+                if (b.Contains(item))
+                    Console.WriteLine(item);
+
+            Console.Write("\nKérek egy számot");
+            int szam = Convert.ToInt32(Console.ReadLine());
+            int db_a = 0;
+            int db_b = 0;
+
+            foreach (var item in a)
+                if (item == szam)
+                    db_a++;
+
+            foreach (var item in b)
+                if (item == szam)
+                    db_b++;
+
+            if (db_a > 0)
+                Console.WriteLine($"Az 'a' tömbben megtaláltam a számot: {db_a}db van belölle");
+            else
+                Console.WriteLine($"Az 'a' tömbben nem találtam meg a számot");
+
+            if (db_b > 0)
+                Console.WriteLine($"Az 'b' tömbben megtaláltam a számot: {db_b}db van belölle");
+            else
+                Console.WriteLine($"Az 'b' tömbben nem találtam meg a számot");
+
+
+            Console.WriteLine("\n'a' tömbben benne vannak de a 'b'-ben nincsennek\n");
+            foreach (var item in a)
+                if (!b.Contains(item))
+                {
+                    Console.Write(item + ", ");
+                }
+
+        }
         public void Tombok()
         {
             string[] t = new string[5];

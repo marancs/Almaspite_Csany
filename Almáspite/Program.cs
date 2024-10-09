@@ -15,7 +15,13 @@ namespace Almáspite
         public Program()//konstruktor
         {
             Console.ForegroundColor = ConsoleColor.Black;
-            HF2();
+            Gyakorlas2();
+        }
+
+        public void Osztas()
+        {
+            double n = 2;
+            Console.WriteLine((n*10)%10);
         }
 
         public void Gyakorlas2()
@@ -31,7 +37,89 @@ namespace Almáspite
             //Kik azok a diákok akik az átlaghoz közeli jegyük van. 
             //pl.: Átlag: 3,5 azok a diákok kellenek akiknek 3-as és 4-es jegyük van
 
+            Console.WriteLine("Csoport feladat!");
+            int letszam=0;
+            do
+            {
+                Console.Write("Kérem a csoport létszámát (3 - 10): ");
+                letszam = Convert.ToInt32(Console.ReadLine());
+            } while (letszam < 3 || letszam > 10);
 
+            string[] diakok = new string[letszam];
+            int[] jegyek = new int[letszam];
+
+            Console.WriteLine("Kérem a diákok nevét és jegyét:");
+            for (int i = 0; i < diakok.Length; i++)
+            {
+                Console.Write($"{(i+1)}. diák: ");
+                diakok[i] = Console.ReadLine();
+
+                Console.Write($"{diakok[i]} jegye: ");
+                jegyek[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.WriteLine("Feladatok:");
+            Console.WriteLine("Diákok aki elégtelent kaptak:");
+            int db_1 = 0;
+            if (!jegyek.Contains(1))
+                Console.WriteLine("Szerencsére senki se kapott elégtelent!");
+            else
+                for (int i = 0; i < letszam; i++)
+                    if (jegyek[i] == 1)
+                    {
+                        db_1++;
+                        Console.WriteLine(" - " + diakok[i]);
+                    }
+                Console.WriteLine($"Összesen: {db_1}db elégtelen lett!");
+
+            Console.Write("Diákok átlaga:");
+            double osszeg = 0;
+            double atlag = 0;
+            foreach (var jegy in jegyek)
+                osszeg += jegy;
+
+            atlag = Math.Round(osszeg / jegyek.Length,2);
+            Console.WriteLine(atlag);
+            Console.WriteLine("Diák lekérdezése....");
+            Console.Write("Diák neve: ");
+            string nev = Console.ReadLine();
+            if (!diakok.Contains(nev))
+            {
+                Console.WriteLine("Sajnos nem találtam meg!");
+            }
+            else
+            {
+                for (int i = 0; i < diakok.Length; i++)
+                {
+                    if (diakok[i].Equals(nev))
+                    {
+                        Console.WriteLine($"Megtaláltam: {diakok[i]} - jegye: {jegyek[i]}");
+                        break;
+                    }
+                }
+            }
+            //atlag: 2.0 -> 1 - 3
+            //atlag: 3.4 -> 3 - 4
+            int int_a = 0;
+            int int_b = 0;
+
+            if ((atlag * 10) % 10 > 0) {
+
+                int_a = Convert.ToInt32(Math.Floor(atlag));
+                int_b = int_a+1; 
+            }
+            else
+            {
+                int_a = Convert.ToInt32(atlag - 1);
+                int_b = int_a+2;
+            }
+            Console.WriteLine("Diákok, akiknek a jegye átlag közelében van!");
+            for (int i = 0; i < jegyek.Length; i++)
+            {
+                if (jegyek[i] >= int_a && jegyek[i]<= int_b)
+                {
+                    Console.WriteLine($" {diakok[i]} diák jegye: {jegyek[i]}.");
+                }
+            }
 
         }
 
